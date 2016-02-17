@@ -6,26 +6,8 @@ var cache = new Cache();
 var mailServer = new MailServer(cache);
 var app = express();
 
-//todo make cleaner
 app.get('/mail', function(req, res){
- var searchParams = {};
- var from = req.query.from;
- var to = req.query.to;
- var subject = req.query.subject;
-
- if (typeof from != 'undefined') {
-  searchParams['from'] = from;
- }
-
- if (typeof to != 'undefined') {
-  searchParams['to'] = to;
- }
-
- if (typeof subject != 'undefined') {
-  searchParams['subject'] = subject;
- }
-//end
- var result = cache.search(searchParams);
+ var result = cache.search(req.query);
  res.send(result);
 });
 
@@ -55,13 +37,6 @@ app.get('/mail/delete/all', function(req, res){
  res.send('deleted all mail');
 
 });
-
-
-var queryStringToSearchParams(querystring)
-{
-
-}
-
 
 app.listen(3000);
 
